@@ -49,4 +49,3 @@ export type ClassMember = typeof classMembers.$inferSelect;
 export type InsertClassMember = typeof classMembers.$inferInsert;
 export type MemberGalleryItem = typeof memberGallery.$inferSelect;
 export type InsertMemberGalleryItem = typeof memberGallery.$inferInsert;
-
