@@ -1,0 +1,28 @@
+# Project TODO
+
+- [x] Add database schema for class directory members and approved gallery items
+- [x] Add public directory and member profile procedures
+- [x] Add owner-only admin procedures for creating, editing, deleting, and publishing member records
+- [x] Add owner dashboard with mobile-friendly member management controls
+- [x] Add premium cybercore visual system and responsive public experience
+- [x] Add privacy-safe handling for phone numbers, Instagram, and media visibility
+- [x] Add search, status filters, sorting, loading, empty, error, and reduced-motion states
+- [x] Add unit tests for owner authorization and directory data operations
+- [x] Run typecheck and test suite
+- [x] Verify desktop and mobile screenshots (mobile preview verified; owner route correctly shows sign-in state)
+- [x] Prepare detailed mobile usage and future editing guide
+- [x] Add explicit Instagram and gallery visibility controls and enforce phone/gallery privacy in public procedures and rendering
+- [x] Add sorting control and explicit public/admin error states
+- [x] Add Vitest coverage for member and gallery CRUD data operations
+- [x] Capture and verify public and owner screenshots at both desktop and mobile sizes
+- [x] Add owner gallery visibility controls and public gallery rendering
+- [x] Add explicit admin mutation error feedback
+- [ ] Add Vitest coverage for member and gallery CRUD procedures
+- [x] Create a clean GitHub-ready source archive and mobile upload instructions
+- [x] Add moving digital grid, terminal typing reveal, shared profile transition, Race field, bento profile sections, and Media Vault photo/video support
+- [x] Complete the shared card-to-profile expansion with a shared card layout ID
+- [x] Add an owner Media Vault list with visibility toggles and deletion controls
+- [x] Show Status as an explicit profile bento tile
+- [x] Refine shared-layout morph, staggered terminal reveal, scanline/digital rain atmosphere, glass profile tiles, and verify owner database persistence
+- [x] Add an owner Media Vault management list with existing-item publish/unpublish and delete actions
+- [ ] Add verifiable owner member persistence coverage across create/update/query operations
