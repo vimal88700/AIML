@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
+import { beforeEach } from "vitest";
 import type { TrpcContext } from "./_core/context";
 
 const publicContext: TrpcContext = {
@@ -9,6 +10,7 @@ const publicContext: TrpcContext = {
 };
 
 describe("directory procedures", () => {
+  beforeEach(() => { process.env.DATABASE_URL = ""; });
   it("returns a list for the public directory", async () => {
     const result = await appRouter.createCaller(publicContext).directory.list();
     expect(Array.isArray(result)).toBe(true);

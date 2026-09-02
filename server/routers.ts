@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { COOKIE_NAME } from "@shared/const";
+import { TRPCError } from "@trpc/server";
 import { getSessionCookieOptions } from "./_core/cookies";
+import { ADMIN_COOKIE_NAME, createAdminToken, passwordsMatch } from "./adminAuth";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, publicProcedure, router } from "./_core/trpc";
 import { addGalleryItem, createMember, deleteGalleryItem, deleteMember, getMemberById, listGallery, listMembers, updateGalleryItem, updateMember } from "./db";
@@ -16,7 +17,8 @@ export const appRouter = router({
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
-    logout: publicProcedure.mutation(({ ctx }) => { ctx.res.clearCookie(COOKIE_NAME, { ...getSessionCookieOptions(ctx.req), maxAge: -1 }); return { success: true } as const; }),
+    login: publicProcedure.input(z.object({ password: z.string().min(1).max(200) })).mutation(async ({ ctx, input }) => { if (!passwordsMatch(input.password)) throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid admin password" }); const token = await createAdminToken(); ctx.res.cookie(ADMIN_COOKIE_NAME, token, { ...getSessionCookieOptions(ctx.req), httpOnly: true, maxAge: 60 * 60 * 24 * 30 }); return { success: true } as const; }),
+    logout: publicProcedure.mutation(({ ctx }) => { ctx.res.clearCookie(ADMIN_COOKIE_NAME, { ...getSessionCookieOptions(ctx.req), maxAge: -1 }); return { success: true } as const; }),
   }),
   directory: router({
     list: publicProcedure.query(() => listMembers(false)),

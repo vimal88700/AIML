@@ -1,0 +1,6 @@
+# Copy these names into your hosting provider's private Environment settings.
+# Replace every placeholder with a real value there, not in GitHub.
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:5432/DATABASE?sslmode=require
+ADMIN_PASSWORD=replace-with-a-long-unique-admin-password
+JWT_SECRET=replace-with-a-long-random-signing-secret
+PORT=10000

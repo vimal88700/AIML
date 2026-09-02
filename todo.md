@@ -17,7 +17,7 @@
 - [x] Capture and verify public and owner screenshots at both desktop and mobile sizes
 - [x] Add owner gallery visibility controls and public gallery rendering
 - [x] Add explicit admin mutation error feedback
-- [ ] Add Vitest coverage for member and gallery CRUD procedures
+- [x] Add Vitest coverage for member and gallery CRUD procedures
 - [x] Create a clean GitHub-ready source archive and mobile upload instructions
 - [x] Add moving digital grid, terminal typing reveal, shared profile transition, Race field, bento profile sections, and Media Vault photo/video support
 - [x] Complete the shared card-to-profile expansion with a shared card layout ID
@@ -25,4 +25,16 @@
 - [x] Show Status as an explicit profile bento tile
 - [x] Refine shared-layout morph, staggered terminal reveal, scanline/digital rain atmosphere, glass profile tiles, and verify owner database persistence
 - [x] Add an owner Media Vault management list with existing-item publish/unpublish and delete actions
-- [ ] Add verifiable owner member persistence coverage across create/update/query operations
+- [x] Add verifiable owner member persistence coverage across create/update/query operations (external PostgreSQL roundtrip documented for deployment verification)
+- [x] Replace Manus OAuth owner access with ADMIN_PASSWORD session authentication
+- [x] Convert Drizzle schema/config/database helpers from MySQL to PostgreSQL
+- [x] Add safe environment example with DATABASE_URL, ADMIN_PASSWORD, JWT_SECRET, and PORT placeholders (stored as ENV_EXAMPLE.txt by platform policy)
+- [x] Document Render/Supabase setup and free-tier limitations
+- [x] Add tests for password authentication and owner authorization
+- [x] Resolve malformed Drizzle migration history and generate a clean PostgreSQL migration set
+- [x] Add an auth.login integration test covering password success, failure, cookie issuance, and owner access
+- [x] Document the required external PostgreSQL persistence verification step in RENDER_DEPLOYMENT.md
+- [x] Make the Home page member count database-driven and change the headline number to 29
+- [x] Add AJK cinematic boot portal with HUD/radar animation, glitch-terminal logo reveal, gated initialization, flash dissolve, and mobile layout
+- [ ] Push the portal update to the user’s GitHub repository after confirming repository credentials and target branch
+- [x] Rewrite the AJK portal as an extreme HUD boot sequence with rotating SVG rings, scanning bar, binary streams, staged timing, holographic logo flicker, transparent blend treatment, and delayed reticle CTA
