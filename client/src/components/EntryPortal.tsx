@@ -1,65 +1,54 @@
-import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
-const logoUrl = "/manus-storage/ajk-college-logo-final_2aecd7dd.png";
-const hexChars = "0123456789ABCDEF";
-
-function randomHex(length: number) {
-  return Array.from({ length }, () => hexChars[Math.floor(Math.random() * hexChars.length)]).join("");
-}
-
-function DataStream({ side, seed }: { side: "left" | "right"; seed: number }) {
-  const rows = useMemo(() => Array.from({ length: 15 }, (_, index) => `${randomHex(4)}  /  ${String((seed + index * 17) % 9999).padStart(4, "0")}  /  ${randomHex(2)}`), [seed]);
-  return <div className={`hud-data-stream hud-data-${side}`} aria-hidden="true">{rows.map((row, index) => <span key={`${seed}-${index}`}>{row}</span>)}</div>;
-}
+const logoUrl = "/manus-storage/ajk-college-logo-crisp_c9153161.png";
 
 export default function EntryPortal({ onInitialize }: { onInitialize: () => void }) {
-  const [bootStep, setBootStep] = useState(0);
+  const [bootPhase, setBootPhase] = useState(0);
   const [launching, setLaunching] = useState(false);
-  const [streamSeed, setStreamSeed] = useState(7);
 
   useEffect(() => {
     const timers = [
-      window.setTimeout(() => setBootStep(1), 700),
-      window.setTimeout(() => setBootStep(2), 1500),
-      window.setTimeout(() => setBootStep(3), 2300),
-      window.setTimeout(() => setBootStep(4), 3100),
+      window.setTimeout(() => setBootPhase(1), 850),
+      window.setTimeout(() => setBootPhase(2), 2050),
+      window.setTimeout(() => setBootPhase(3), 3150),
+      window.setTimeout(() => setBootPhase(4), 4000),
     ];
-    const interval = window.setInterval(() => setStreamSeed((value) => value + 1), 180);
-    return () => { timers.forEach(window.clearTimeout); window.clearInterval(interval); };
+    return () => timers.forEach(window.clearTimeout);
   }, []);
 
-  const initialize = () => {
-    if (bootStep < 4 || launching) return;
+  const enterArchive = () => {
+    if (bootPhase < 4 || launching) return;
     setLaunching(true);
-    window.setTimeout(onInitialize, 920);
+    window.setTimeout(onInitialize, 900);
   };
 
-  return <motion.main className="entry-portal interface-only" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 1.12, filter: "blur(20px)" }} transition={{ duration: .45 }} onClick={initialize} aria-label="AJK identity archive interface">
-    <div className="hud-vignette" aria-hidden="true" />
-    <div className="hud-scanline" aria-hidden="true" />
-    <DataStream side="left" seed={streamSeed} />
-    <DataStream side="right" seed={streamSeed + 31} />
-    <div className="hud-coordinates hud-coordinates-top" aria-hidden="true">X: {String(streamSeed * 13).padStart(4, "0")} / Y: {String(streamSeed * 7).padStart(4, "0")} / Z: 00{streamSeed % 9}</div>
-    <div className="hud-coordinates hud-coordinates-bottom" aria-hidden="true">SIG // {randomHex(8)} // {bootStep >= 4 ? "READY" : "BOOT"}</div>
-
-    <motion.div className="hud-core" initial={{ opacity: 0, scale: .78, x: "-50%", y: "-50%" }} animate={{ opacity: bootStep >= 1 ? 1 : 0, scale: bootStep >= 1 ? 1 : .78, x: "-50%", y: "-50%" }} transition={{ type: "spring", stiffness: 90, damping: 15 }}>
-      <motion.svg className="hud-orbit hud-orbit-outer" viewBox="0 0 700 700" animate={{ rotate: 360, scale: [1, 1.012, 1] }} transition={{ rotate: { duration: 25, repeat: Infinity, ease: "linear" }, scale: { duration: 1.3, repeat: Infinity, ease: "easeInOut" } }}><circle cx="350" cy="350" r="326"/><circle cx="350" cy="350" r="300" strokeDasharray="2 22"/><path d="M350 5v52M350 643v52M5 350h52M643 350h52"/><path d="M104 104l37 37M559 559l37 37M596 104l-37 37M141 559l-37 37"/></motion.svg>
-      <motion.svg className="hud-orbit hud-orbit-mid" viewBox="0 0 560 560" animate={{ rotate: -360 }} transition={{ duration: 14, repeat: Infinity, ease: "linear" }}><circle cx="280" cy="280" r="252"/><circle cx="280" cy="280" r="214" strokeDasharray="100 12 3 14"/><path d="M280 20v35M280 505v35M20 280h35M505 280h35"/></motion.svg>
-      <motion.svg className="hud-orbit hud-orbit-inner" viewBox="0 0 410 410" animate={{ rotate: 360, scale: [1, 1.035, 1] }} transition={{ rotate: { duration: 8, repeat: Infinity, ease: "linear" }, scale: { duration: .86, repeat: Infinity, ease: "easeInOut" } }}><circle cx="205" cy="205" r="177"/><circle cx="205" cy="205" r="144" strokeDasharray="1 10"/><path d="M205 18v44M205 348v44M18 205h44M348 205h44"/></motion.svg>
-      <div className="hud-target-core"><span/><span/><i/></div>
+  return <motion.main className="entry-portal gold-interface" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .5 }} aria-label="AJK golden archive interface">
+    <div className="gold-vignette" aria-hidden="true" />
+    <div className="gold-scanlines" aria-hidden="true" />
+    <motion.div className="gold-target-stage" initial={{ opacity: 0, scale: .8, x: "-50%", y: "-50%" }} animate={{ opacity: bootPhase >= 1 ? 1 : 0, scale: bootPhase >= 1 ? 1 : .8, x: "-50%", y: "-50%" }} transition={{ type: "spring", stiffness: 80, damping: 16 }} aria-hidden="true">
+      <motion.svg className="gold-ring gold-ring-outer" viewBox="0 0 700 700" animate={{ rotate: 360 }} transition={{ duration: 34, repeat: Infinity, ease: "linear" }}><circle cx="350" cy="350" r="324"/><circle cx="350" cy="350" r="298" strokeDasharray="2 22"/><path d="M350 4v48M350 648v48M4 350h48M648 350h48"/></motion.svg>
+      <motion.svg className="gold-ring gold-ring-mid" viewBox="0 0 560 560" animate={{ rotate: -360 }} transition={{ duration: 17, repeat: Infinity, ease: "linear" }}><circle cx="280" cy="280" r="254"/><circle cx="280" cy="280" r="216" strokeDasharray="96 12 3 14"/><path d="M280 18v38M280 504v38M18 280h38M504 280h38"/></motion.svg>
+      <motion.svg className="gold-ring gold-ring-inner" viewBox="0 0 420 420" animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }}><circle cx="210" cy="210" r="174"/><circle cx="210" cy="210" r="140" strokeDasharray="1 10"/><path d="M210 16v42M210 362v42M16 210h42M362 210h42"/></motion.svg>
+      <motion.div className="gold-pulse-core" animate={{ scale: [1, 1.06, 1], opacity: [.58, .95, .58] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}><span/><i/></motion.div>
     </motion.div>
 
-    <motion.div className="hud-logo-core" initial={{ opacity: 0, scale: .6, x: "-50%", y: "-50%", filter: "blur(12px)" }} animate={{ opacity: bootStep >= 3 ? 1 : 0, scale: bootStep >= 3 ? 1 : .6, x: "-50%", y: "-50%", filter: bootStep >= 3 ? "blur(0px)" : "blur(12px)" }} transition={{ type: "spring", stiffness: 100, damping: 14 }}>
+    <div className="gold-corner-label gold-corner-tl" aria-hidden="true">INITIALIZING_SYSTEM<span>///</span></div>
+    <div className="gold-corner-label gold-corner-tr" aria-hidden="true">SCANNING_DATABASE<span>00{bootPhase}</span></div>
+    <div className="gold-corner-label gold-corner-bl" aria-hidden="true">AJK::ARCHIVE<span>SECURE</span></div>
+    <div className="gold-corner-label gold-corner-br" aria-hidden="true">LINK_STATUS<span>{bootPhase >= 4 ? "STANDBY" : "BOOTING"}</span></div>
+
+    <motion.div className="gold-logo-core" initial={{ opacity: 0, scale: .82, x: "-50%", y: "-50%", filter: "blur(10px)" }} animate={{ opacity: bootPhase >= 2 ? 1 : 0, scale: bootPhase >= 2 ? 1 : .82, x: "-50%", y: "-50%", filter: bootPhase >= 2 ? "blur(0px)" : "blur(10px)" }} transition={{ type: "spring", stiffness: 95, damping: 15 }}>
       <img src={logoUrl} alt="AJK College of Arts and Science Autonomous" />
-      <span className="hud-logo-glitch" aria-hidden="true">AJK</span>
     </motion.div>
 
-    <motion.button type="button" className={`hud-reticle ${bootStep >= 4 ? "hud-reticle-ready" : ""} ${launching ? "hud-reticle-launching" : ""}`} initial={{ opacity: 0, scale: .7 }} animate={{ opacity: bootStep >= 4 ? 1 : 0, scale: bootStep >= 4 ? 1 : .7 }} transition={{ type: "spring", stiffness: 160, damping: 12 }} whileHover={{ scale: 1.08 }} whileTap={{ scale: .88 }} onClick={(event) => { event.stopPropagation(); initialize(); }} aria-label={bootStep >= 4 ? "Enter identity archive" : "Booting archive"} disabled={bootStep < 4}>
-      <b className="reticle-corner reticle-tl"/><b className="reticle-corner reticle-tr"/><b className="reticle-corner reticle-bl"/><b className="reticle-corner reticle-br"/><span className="reticle-dot"/>
+    <motion.div className="gold-boot-readout" initial={{ opacity: 0 }} animate={{ opacity: bootPhase >= 4 ? .72 : 1 }} transition={{ duration: .5 }} aria-live="polite">{bootPhase < 1 ? "" : bootPhase < 2 ? "TARGET_LOCK" : bootPhase < 3 ? "SCANNING_DATABASE..." : bootPhase < 4 ? "CALIBRATING_RING_ARRAY" : "STANDBY // ARCHIVE_READY"}</motion.div>
+
+    <motion.button type="button" className={`gold-access-reticle ${bootPhase >= 4 ? "is-ready" : ""} ${launching ? "is-launching" : ""}`} initial={{ opacity: 0, y: 16 }} animate={{ opacity: bootPhase >= 4 ? 1 : 0, y: bootPhase >= 4 ? 0 : 16 }} transition={{ type: "spring", stiffness: 150, damping: 13 }} whileHover={{ scale: 1.06 }} whileTap={{ scale: .88 }} onClick={enterArchive} disabled={bootPhase < 4} aria-label="Access archive">
+      <b className="gold-reticle-corner gold-rt-tl"/><b className="gold-reticle-corner gold-rt-tr"/><b className="gold-reticle-corner gold-rt-bl"/><b className="gold-reticle-corner gold-rt-br"/><span className="gold-reticle-center"/><span className="gold-access-label">[ ACCESS ARCHIVE ]</span><ArrowUpRight size={14}/>
     </motion.button>
 
-    <AnimatePresence mode="wait"><motion.div key={bootStep} className="hud-boot-state" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: .18 }}>{bootStep < 1 ? "//" : bootStep < 2 ? "INIT::HUD" : bootStep < 3 ? "DECRYPTING" : bootStep < 4 ? "CALIBRATING" : "ARCHIVE_READY"}</motion.div></AnimatePresence>
-    {launching && <motion.div className="hud-black-hole" initial={{ opacity: 0, scale: 0 }} animate={{ opacity: [0, 1, 1], scale: [0, 1, 14] }} transition={{ duration: .95, times: [0, .28, 1], ease: "easeIn" }} aria-hidden="true" />}
+    {launching && <motion.div className="golden-flash" initial={{ opacity: 0, scale: 0 }} animate={{ opacity: [0, 1, 1], scale: [0, 1, 18] }} transition={{ duration: .9, times: [0, .3, 1], ease: "easeIn" }} aria-hidden="true" />}
   </motion.main>;
 }
