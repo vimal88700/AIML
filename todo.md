@@ -36,5 +36,6 @@
 - [x] Document the required external PostgreSQL persistence verification step in RENDER_DEPLOYMENT.md
 - [x] Make the Home page member count database-driven and change the headline number to 29
 - [x] Add AJK cinematic boot portal with HUD/radar animation, glitch-terminal logo reveal, gated initialization, flash dissolve, and mobile layout
-- [ ] Push the portal update to the user’s GitHub repository after confirming repository credentials and target branch
+- [x] Push the portal update to the user’s GitHub repository after confirming repository credentials and target branch
 - [x] Rewrite the AJK portal as an extreme HUD boot sequence with rotating SVG rings, scanning bar, binary streams, staged timing, holographic logo flicker, transparent blend treatment, and delayed reticle CTA
+- [x] Convert the entry portal to a full-screen interface-only black-hole HUD with multi-speed rings, live hex/coordinate streams, delayed reticle gate, heartbeat pulses, and GitHub sync
